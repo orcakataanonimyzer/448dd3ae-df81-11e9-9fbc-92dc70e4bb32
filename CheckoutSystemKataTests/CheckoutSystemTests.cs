@@ -132,5 +132,19 @@ namespace CheckoutSystemKataTests
             checkoutSystem.RemoveScannedItem(itemToRemove);
             Assert.IsTrue(checkoutSystem.scannedItems.First().Weight == 1);
         }
+
+        [TestMethod]
+        public void should_be_able_to_remove_scanned_item_and_invalidate_special()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNGetAllForMPrice(2, 1, null);
+            ScanPeanutItem(6);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 3);
+            var itemToRemove = new Item("peanuts", 2, 1);
+            checkoutSystem.RemoveScannedItem(itemToRemove);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 4);
+        }
     }
 }
