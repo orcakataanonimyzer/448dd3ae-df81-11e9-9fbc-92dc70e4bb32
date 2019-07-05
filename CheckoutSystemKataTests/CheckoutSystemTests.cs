@@ -86,7 +86,7 @@ namespace CheckoutSystemKataTests
         public void should_be_able_to_buy_n_get_m_at__x_off_special_for_an_available_item()
         {
             AddPeanutsToAvailableItems();
-            checkoutSystem.availableItems.First().Special.AddBuyNGetXOffOfMSpecial(2, 1, .5);
+            checkoutSystem.availableItems.First().Special.AddBuyNGetXOffOfMSpecial(2, 1, .5, null);
             ScanPeanutItem(2);
             checkoutSystem.CalculateTotal();
             Assert.IsTrue(checkoutSystem.checkoutTotal == 3);
@@ -96,10 +96,30 @@ namespace CheckoutSystemKataTests
         public void should_be_able_to_create_a_special_to_buy_n_get_all_at_discounted_price()
         {
             AddPeanutsToAvailableItems();
-            checkoutSystem.availableItems.First().Special.AddBuyNGetAllForMPrice(2, 1);
+            checkoutSystem.availableItems.First().Special.AddBuyNGetAllForMPrice(2, 1, null);
             ScanPeanutItem(2);
             checkoutSystem.CalculateTotal();
             Assert.IsTrue(checkoutSystem.checkoutTotal == 1);
+        }
+
+        [TestMethod]
+        public void should_be_able_to_place_limit_on_buy_n_get_m_at_x_off_special_for_an_available_item()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNGetXOffOfMSpecial(2, 1, .5, 6);
+            ScanPeanutItem(9);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 16);
+        }
+
+        [TestMethod]
+        public void should_be_able_to_place_limit_on_special_to_buy_n_get_akk_at_fixed_cost()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNGetAllForMPrice(2, 1, 6);
+            ScanPeanutItem(7);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 5);
         }
     }
 }
