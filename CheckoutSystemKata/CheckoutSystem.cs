@@ -35,13 +35,11 @@ namespace CheckoutSystemKata
                 var itemAlreadyScanned = scannedItems.FirstOrDefault(si => si.Name == scanItem.Name);
                 if (itemAlreadyScanned == null)
                 {
-                    scanItem.Total = scanItem.Price;
                     scannedItems.Add(scanItem);
                 }
                 else
                 {
                     itemAlreadyScanned.Weight += scanItem.Weight;
-                    itemAlreadyScanned.Total += scanItem.Price;
                 }
             }
             else
@@ -57,7 +55,7 @@ namespace CheckoutSystemKata
             {
                 var availableItem = availableItems.First(ai => ai.Name == item.Name);
                 var numberOfItems = item.Weight / availableItem.Weight;
-                checkoutTotal += numberOfItems * availableItem.Price;
+                checkoutTotal += numberOfItems * (availableItem.Price - availableItem.Markdown);
             }
         }
 

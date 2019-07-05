@@ -13,9 +13,18 @@ namespace CheckoutSystemKata.Models
             Weight = weight;
         }
 
+        public Item(string name, double price, double weight, double markdown)
+        {
+            Name = name;
+            Price = price;
+            Weight = weight;
+            Markdown = markdown;
+        }
+
         public string Name { get; set; }
         public double Price { get; set; }
         public double Weight { get; set; }
         public double Total { get; set; }
+        public double Markdown { get; set; } = 0;
     }
 }

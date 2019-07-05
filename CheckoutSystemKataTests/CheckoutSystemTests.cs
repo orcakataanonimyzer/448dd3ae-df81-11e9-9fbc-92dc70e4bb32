@@ -71,5 +71,15 @@ namespace CheckoutSystemKataTests
             checkoutSystem.ScanItem(item);
             Assert.IsFalse(checkoutSystem.scannedItems.Count == 1);
         }
+
+        [TestMethod]
+        public void should_discount_price_of_the_item_by_the_markdown()
+        {
+            var markedDownItem = new Item("peanuts", 2, 1, 1);
+            checkoutSystem.AddToAvailableItems(markedDownItem);
+            ScanPeanutItem(2);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 2);
+        }
     }
 }
