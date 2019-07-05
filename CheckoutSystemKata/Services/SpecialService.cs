@@ -28,5 +28,24 @@ namespace CheckoutSystemKata.Services
                 return numberScanned * availableItem.Price;
             }
         }
+
+        public double CalculateGetXForMSpecialTotal(Item availableItem, Item scannedItem)
+        {
+            double numberScanned = scannedItem.Weight / availableItem.Weight;
+            if (numberScanned >= availableItem.Special.ItemsToBuy)
+            {
+                var timesToDiscount = (int)(numberScanned / availableItem.Special.ItemsToBuy);
+                var remainingItems = numberScanned - (timesToDiscount * availableItem.Special.ItemsToBuy);
+
+                var discountedCost = timesToDiscount * availableItem.Special.FixedDiscountedPrice;
+                var fullPriceItems = remainingItems * availableItem.Price;
+
+                return discountedCost + fullPriceItems;
+            }
+            else
+            {
+                return numberScanned * availableItem.Price;
+            }
+        }
     }
 }

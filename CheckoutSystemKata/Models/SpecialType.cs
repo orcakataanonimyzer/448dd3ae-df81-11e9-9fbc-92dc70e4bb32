@@ -3,6 +3,7 @@
     public enum SpecialType
     {
         None = 0,
-        GetXOffNBuyM
+        GetXOffNBuyM,
+        GetXForM
     }
 }

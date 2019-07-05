@@ -91,5 +91,15 @@ namespace CheckoutSystemKataTests
             checkoutSystem.CalculateTotal();
             Assert.IsTrue(checkoutSystem.checkoutTotal == 3);
         }
+
+        [TestMethod]
+        public void should_be_able_to_create_a_special_to_buy_n_get_all_at_discounted_price()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNGetAllForMPrice(2, 1);
+            ScanPeanutItem(2);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 1);
+        }
     }
 }
