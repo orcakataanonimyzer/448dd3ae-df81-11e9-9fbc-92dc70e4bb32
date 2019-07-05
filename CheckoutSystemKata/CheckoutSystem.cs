@@ -85,6 +85,22 @@ namespace CheckoutSystemKata
             }
         }
 
+        public void RemoveScannedItem(Item itemToRemove)
+        {
+            if (scannedItems.Any(si => si.Name == itemToRemove.Name))
+            {
+                var itemToAdjust = scannedItems.First(si => si.Name == itemToRemove.Name);
+                if (itemToAdjust.Weight == itemToRemove.Weight)
+                {
+                    scannedItems.Remove(itemToAdjust);
+                }
+                else
+                {
+                    itemToAdjust.Weight -= itemToRemove.Weight;
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
