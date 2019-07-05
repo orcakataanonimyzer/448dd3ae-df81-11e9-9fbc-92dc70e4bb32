@@ -4,6 +4,7 @@
     {
         None = 0,
         GetXOffNBuyM,
-        GetXForM
+        GetXForM,
+        GetNWeightMWeightDiscount
     }
 }

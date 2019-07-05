@@ -52,5 +52,31 @@ namespace CheckoutSystemKata.Services
                 return numberScanned * availableItem.Price;
             }
         }
+
+        public double CalculateBuyNWeightGetMWeightDiscountSpecialTotal(Item availableItem, Item scannedItem)
+        {
+            double totalWeight = scannedItem.Weight;
+            if (totalWeight >= availableItem.Special.WeightToBuy)
+            {
+                double discountedTotal = 0;
+                double fullPriceTotal = 0;
+
+                var weightNeededForDiscount = availableItem.Special.WeightToBuy + availableItem.Special.WeightDiscounted;
+                var itemHasLimit = availableItem.Special.Limit > 0;
+                var timesToApplyDiscount = (int)(totalWeight / weightNeededForDiscount);
+                var maxTimesAllowedToApplyDiscount = (int)(availableItem.Special.Limit / weightNeededForDiscount);
+
+                timesToApplyDiscount = itemHasLimit && timesToApplyDiscount > maxTimesAllowedToApplyDiscount ? maxTimesAllowedToApplyDiscount : timesToApplyDiscount;
+                var weightToDiscount = availableItem.Special.WeightDiscounted * timesToApplyDiscount;
+
+                discountedTotal = weightToDiscount * (availableItem.Price * availableItem.Special.Discount);
+                fullPriceTotal = (scannedItem.Weight - weightToDiscount) * availableItem.Price;
+                return discountedTotal + fullPriceTotal;
+            }
+            else
+            {
+                return (totalWeight / availableItem.Weight) * availableItem.Price;
+            }
+        }
     }
 }

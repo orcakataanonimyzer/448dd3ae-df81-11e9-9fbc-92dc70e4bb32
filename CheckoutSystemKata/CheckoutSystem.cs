@@ -80,6 +80,8 @@ namespace CheckoutSystemKata
                     return specialService.CalculateBuyNGetMAtXOffSpecialTotal(availableItem, scannedItem);
                 case SpecialType.GetXForM:
                     return specialService.CalculateGetXForMSpecialTotal(availableItem, scannedItem);
+                case SpecialType.GetNWeightMWeightDiscount:
+                    return specialService.CalculateBuyNWeightGetMWeightDiscountSpecialTotal(availableItem, scannedItem);
                 default:
                     return 0;
             }

@@ -12,6 +12,8 @@ namespace CheckoutSystemKata.Models
         public double FixedDiscountedPrice { get; set; }
         public SpecialType Type = 0;
         public double Limit { get; set; }
+        public double WeightToBuy { get; set; }
+        public double WeightDiscounted { get; set; }
 
         public void AddBuyNGetXOffOfMSpecial(double itemsToBuy, double itemsToDiscount, double discount, double? limit)
         {
@@ -27,6 +29,15 @@ namespace CheckoutSystemKata.Models
             Type = SpecialType.GetXForM;
             ItemsToBuy = itemsToBuy;
             FixedDiscountedPrice = fixedDiscountedPrice;
+            Limit = limit ?? 0;
+        }
+
+        public void AddBuyNWeightGetMWeightForDiscount(int weightToBuy, double weightDiscounted, double discount, double? limit)
+        {
+            Type = SpecialType.GetNWeightMWeightDiscount;
+            WeightToBuy = weightToBuy;
+            WeightDiscounted = weightDiscounted;
+            Discount = discount;
             Limit = limit ?? 0;
         }
     }

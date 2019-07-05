@@ -146,5 +146,25 @@ namespace CheckoutSystemKataTests
             checkoutSystem.CalculateTotal();
             Assert.IsTrue(checkoutSystem.checkoutTotal == 4);
         }
+
+        [TestMethod]
+        public void should_be_able_to_add_special_get_n_weight_recieve_discount_on_m_weight()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNWeightGetMWeightForDiscount(3, 2, .5, null);
+            ScanPeanutItem(5);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 8);
+        }
+
+        [TestMethod]
+        public void should_be_able_to_add_special_get_n_weight_recieve_discount_on_m_weight_with_limit()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNWeightGetMWeightForDiscount(3, 2, .5, 10);
+            ScanPeanutItem(15);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 26);
+        }
     }
 }
