@@ -26,5 +26,7 @@ namespace CheckoutSystemKata.Models
         public double Weight { get; set; }
         public double Total { get; set; }
         public double Markdown { get; set; } = 0;
+        public Special Special { get; set; } = new Special();
+        public bool HasSpecial => Special.Type != 0;
     }
 }

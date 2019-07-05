@@ -1,4 +1,5 @@
 ﻿using CheckoutSystemKata.Models;
+using CheckoutSystemKata.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace CheckoutSystemKata
     {
         public HashSet<Item> availableItems = new HashSet<Item>();
         public HashSet<Item> scannedItems = new HashSet<Item>();
+        private SpecialService specialService = new SpecialService();
+
         public double checkoutTotal = 0;
 
         public CheckoutSystem()
@@ -55,7 +58,28 @@ namespace CheckoutSystemKata
             {
                 var availableItem = availableItems.First(ai => ai.Name == item.Name);
                 var numberOfItems = item.Weight / availableItem.Weight;
-                checkoutTotal += numberOfItems * (availableItem.Price - availableItem.Markdown);
+
+                if (availableItem.HasSpecial)
+                {
+                    checkoutTotal += DetermineSpecialTotal(availableItem, item);
+                }
+                else
+                {
+                    checkoutTotal += numberOfItems * (availableItem.Price - availableItem.Markdown);
+                }
+            }
+        }
+
+        public double DetermineSpecialTotal(Item availableItem, Item scannedItem)
+        {
+            switch (availableItem.Special.Type)
+            {
+                case SpecialType.None:
+                    return 0;
+                case SpecialType.GetXOffNBuyM:
+                    return specialService.CalculateBuyNGetMAtXOffSpecialTotal(availableItem, scannedItem);
+                default:
+                    return 0;
             }
         }
 

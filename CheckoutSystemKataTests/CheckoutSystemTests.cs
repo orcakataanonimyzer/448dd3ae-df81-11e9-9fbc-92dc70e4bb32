@@ -81,5 +81,15 @@ namespace CheckoutSystemKataTests
             checkoutSystem.CalculateTotal();
             Assert.IsTrue(checkoutSystem.checkoutTotal == 2);
         }
+
+        [TestMethod]
+        public void should_be_able_to_buy_n_get_m_at__x_off_special_for_an_available_item()
+        {
+            AddPeanutsToAvailableItems();
+            checkoutSystem.availableItems.First().Special.AddBuyNGetXOffOfMSpecial(2, 1, .5);
+            ScanPeanutItem(2);
+            checkoutSystem.CalculateTotal();
+            Assert.IsTrue(checkoutSystem.checkoutTotal == 3);
+        }
     }
 }
