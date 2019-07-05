@@ -8,6 +8,8 @@ namespace CheckoutSystemKata
     public class CheckoutSystem
     {
         public HashSet<Item> availableItems = new HashSet<Item>();
+        public HashSet<Item> scannedItems = new HashSet<Item>();
+        public double checkoutTotal = 0;
 
         public CheckoutSystem()
         {
@@ -23,6 +25,39 @@ namespace CheckoutSystemKata
             else
             {
                 availableItems.Add(itemToAdd);
+            }
+        }
+
+        public void ScanItem(Item scanItem)
+        {
+            if (availableItems.Any(ai => ai.Name == scanItem.Name))
+            {
+                var itemAlreadyScanned = scannedItems.FirstOrDefault(si => si.Name == scanItem.Name);
+                if (itemAlreadyScanned == null)
+                {
+                    scanItem.Total = scanItem.Price;
+                    scannedItems.Add(scanItem);
+                }
+                else
+                {
+                    itemAlreadyScanned.Weight += scanItem.Weight;
+                    itemAlreadyScanned.Total += scanItem.Price;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Item not available to scan");
+            }
+        }
+
+        public void CalculateTotal()
+        {
+            checkoutTotal = 0;
+            foreach(var item in scannedItems)
+            {
+                var availableItem = availableItems.First(ai => ai.Name == item.Name);
+                var numberOfItems = item.Weight / availableItem.Weight;
+                checkoutTotal += numberOfItems * availableItem.Price;
             }
         }
 
