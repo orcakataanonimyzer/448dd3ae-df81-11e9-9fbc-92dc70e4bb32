@@ -1,7 +1,7 @@
 INTRODUCTION
 ------------
 
-This console application fulfills the requirements laid out in the check out order total pillar kata.
+This console application fulfills the requirements laid out in the check out order system kata.
 The purpose of this app was to demonstrate my ability to create programs using the test driven development approach.
 
 *	Link to the instructions for this kata is here
